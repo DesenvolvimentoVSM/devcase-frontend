@@ -1,0 +1,17 @@
+.menu-navbar {
+  background: linear-gradient(to right, #e7e7e7, #5183b4);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+}
+
+.logo-fluid {
+  height: 40px;
+}
+
+.titulo {
+  margin-top: 3%;
+  font-size: 40px;
+  margin-bottom: 5%;
+}

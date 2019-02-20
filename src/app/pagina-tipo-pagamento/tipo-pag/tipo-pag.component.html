@@ -1,0 +1,103 @@
+<div class="container">
+
+  <div class="titulo">
+    Tipo de Pagamento
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <button type="button" class="btn btn-success" style="margin-bottom: 5%" (click)="showDialogTipoPag()">
+        <i class="fa fa-plus"></i> Novo Tipo</button>
+    </div>
+  </div>
+
+  <div class="row col-md-6" style="margin-bottom: 5%;">
+    <p-table #table [value]="tipos" [paginator]="true" [rows]="5" [responsive]="true"
+      [globalFilterFields]="['descricao']"
+      [rowsPerPageOptions]="['5','15','20','30']">
+      <ng-template pTemplate="caption">
+        <div style="text-align: left">
+          <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+          <input type="text" pInputText size="25%" placeholder="Pesquisar..."
+            (input)="table.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Descrição</th>
+          <th>Ações</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-tipo>
+        <tr>
+          <td>{{tipo.descricao}}</td>
+          <td style="text-align: center;">
+            <button class="btn btn-warning" pTooltip="Editar" tooltipPosition="top"
+              style="margin-right: 5%" (click)="dialogAtualizarTipoPag(tipo)">
+              <i class="fa fa-pen"></i></button>
+            <button class="btn btn-danger" pTooltip="Excluir" tooltipPosition="top" (click)="confirmarExclusao(tipo.id)">
+              <i class="fa fa-trash"></i></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+  </div>
+
+  <!-- DIALOG PARA CADASTRO DE TIPO PAGAMENTO -->
+  <p-dialog [(visible)]="dialogTipoPag" header="Cadastro de Tipo Pagamento" [modal]="true" [responsive]="true" [closable]="false">
+
+    <form #form="ngForm">
+      <div>
+        <div class="col">Descrição</div>
+        <input id="input" type="text" pInputText [(ngModel)]="tipoPag.descricao" name="descricao" required>
+      </div>
+      <br>
+      <br>
+
+      <p-footer>
+        <button type="button" class="btn btn-success" style="margin-right: 7px" [disabled]="form.invalid"
+          (click)="cadastrarTipo()">
+          <i class="fa fa-check"></i> Salvar</button>
+        <button type="button" class="btn btn-danger" (click)="closeDialogTipoPag()">
+          <i class="fa fa-times"></i> Cancelar</button>
+      </p-footer>
+    </form>
+  </p-dialog>
+
+  <!-- DIALOG PARA ALTERAR TIPO PAGAMENTO -->
+  <p-dialog [(visible)]="dialogAlterarTipoPag" header="Alterar Tipo" [modal]="true" [responsive]="true" [closable]="false">
+
+    <form #formAtualizar="ngForm">
+      <div>
+        <div class="col">Nome</div>
+        <input id="input" type="text" pInputText [(ngModel)]="tipoAlterado.descricao" name="descricao" required>
+      </div>
+      <br>
+      <br>
+
+      <p-footer>
+        <button type="button" class="btn btn-success" style="margin-right: 7px" [disabled]="!formAtualizar.dirty"
+          (click)="atualizarTipo(tipoAlterado.id, tipoAlterado)">
+          <i class="fa fa-check"></i> Salvar</button>
+        <button type="button" class="btn btn-danger" (click)="closeDialogAlterar()" (click)="formAtualizar.reset()">
+          <i class="fa fa-times"></i> Cancelar</button>
+      </p-footer>
+    </form>
+  </p-dialog>
+
+  <!--DIALOG DE CONFIRMAR EXCLUSAO-->
+  <p-dialog [(visible)]="dialogConfirmarExclusao" header="Confirmar Exclusão" [modal]="true" [closable]="false"
+    [responsive]="true">
+    <br>
+    <h4>Você deseja realmente excluir ?</h4>
+    <br>
+    <p-footer>
+      <button type="button" style="margin-right: 15px" class="btn btn-success" (click)="excluirTipo()">
+        <i class="fa fa-check-circle"></i> Sim</button>
+      <button type="button" class="btn btn-danger" (click)="dialogConfirmarExclusao=false">
+        <i class="fa fa-times-circle"></i> Não</button>
+    </p-footer>
+  </p-dialog>
+
+</div>
