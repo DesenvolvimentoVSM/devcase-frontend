@@ -1,0 +1,265 @@
+<div class="container">
+
+  <div class="titulo center">
+    Clientes
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <button type="button" class="btn btn-success" style="margin-bottom: 5%" (click)="showDialogCliente()">
+        <i class="fa fa-plus"></i> Novo Cliente</button>
+    </div>
+    <div>
+      <a class="btn btn-danger" style="margin-bottom: 5%" routerLink="/menu">
+        <i class="fa fa-arrow-circle-left"></i> Voltar</a>
+    </div>
+  </div>
+
+  <div class="row col-md-12" style="margin-bottom: 5%;">
+    <p-table #table [value]="clientes" [paginator]="true" [rows]="5" [responsive]="true" [globalFilterFields]="['nome']"
+      [rowsPerPageOptions]="['5','15','20','30']">
+      <ng-template pTemplate="caption">
+        <div style="text-align: left">
+          <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+          <input type="text" pInputText size="25%" placeholder="Pesquisar..." (input)="table.filterGlobal($event.target.value, 'contains')"
+            style="width:auto">
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Nome</th>
+          <th class="center">CPF</th>
+          <th class="center">Sexo</th>
+          <th class="center">Celular</th>
+          <th class="center">Total Pontos</th>
+          <th class="center">Ações</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-cliente>
+        <tr>
+          <td>{{cliente.nome}}</td>
+          <td class="center">{{cliente.cpf}}</td>
+          <td class="center">{{cliente.sexo}}</td>
+          <td class="center">{{cliente.celular}}</td>
+          <td class="center pontos">{{cliente.totalPontos}}</td>
+          <td class="center">
+            <button class="btn btn-outline-info" pTooltip="Detalhes" tooltipPosition="top" style="margin-right: 5%; padding-left: 16px; padding-right:16px;"
+              (click)="dialogDetalhes(cliente)"><i class="fa fa-info"></i></button>
+            <button class="btn btn-warning" pTooltip="Editar" tooltipPosition="top" style="margin-right: 5%" (click)="dialogAtualizarCliente(cliente)">
+              <i class="fa fa-pen"></i></button>
+            <button class="btn btn-danger" pTooltip="Excluir" tooltipPosition="top" (click)="confirmarExclusao(cliente.id)">
+              <i class="fa fa-trash"></i></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+  </div>
+
+  <!-- DIALOG PARA CADASTRO DE CLIENTE -->
+  <p-dialog [(visible)]="dialogCliente" header="Cadastro de Clientes" [modal]="true" [responsive]="true" [closable]="false"
+    [style]="{width: '500px', minWidth: '400px'}">
+
+    <div class="container">
+      <form #form="ngForm">
+        <div class="row">
+          <h4>Informe os dados para inserir um Cliente</h4>
+        </div>
+        <br>
+
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <input type="text" placeholder="Nome" pInputText [(ngModel)]="cliente.nome" name="nome" required>
+          </div>
+          <div class="col-12 col-md-6">
+            <p-inputMask placeholder="CPF" [(ngModel)]="cliente.cpf" name="cpf" mask="999.999.999-99" required></p-inputMask>
+          </div>
+        </div>
+        <br>
+
+        <div class="row">
+          <div style="margin-left: 15px">
+            Sexo:
+          </div>
+          <div class="col-12 col-md-6">
+            <p-radioButton name="sexo" value="MASCULINO" label="Masculino" [(ngModel)]="cliente.sexo"></p-radioButton>
+            <div class="col"></div>
+            <p-radioButton name="sexo" value="FEMININO" label="Feminino" [(ngModel)]="cliente.sexo"></p-radioButton>
+          </div>
+        </div>
+        <br>
+
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <p-inputMask placeholder="Celular" [(ngModel)]="cliente.celular" name="celular" mask="(99) 99999-9999"
+              required></p-inputMask>
+          </div>
+          <div class="col-12 col-md-6">
+            <input type="text" placeholder="Email" pInputText [(ngModel)]="cliente.email" name="email" required>
+          </div>
+        </div>
+        <br>
+
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <input type="text" placeholder="Endereço" pInputText [(ngModel)]="cliente.endereco" name="endereco"
+              required>
+          </div>
+          <div class="col-12 col-md-6">
+            <input type="text" placeholder="Bairro" pInputText [(ngModel)]="cliente.bairro" name="bairro" required>
+          </div>
+        </div>
+        <br>
+
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <p-inputMask placeholder="CEP" [(ngModel)]="cliente.cep" name="cep" mask="99999-999" required></p-inputMask>
+          </div>
+          <div class="col-12 col-md-6">
+            <p-dropdown [options]="cidades" [(ngModel)]="cidadeSelecionada" name="cidade" optionLabel="nome" [filter]="true"
+              filterBy="label,value.nome" placeholder="Cidade"></p-dropdown>
+          </div>
+        </div>
+        <br>
+        <br>
+
+        <br>
+      </form>
+    </div>
+
+    <p-footer>
+      <button type="button" class="btn btn-success" style="margin-right: 7px" [disabled]="form.invalid" (click)="cadastrarCliente()">
+        <i class="fa fa-check"></i> Salvar</button>
+      <button type="button" class="btn btn-danger" (click)="closeDialogCliente()">
+        <i class="fa fa-times"></i> Cancelar</button>
+    </p-footer>
+  </p-dialog>
+
+  <!-- DIALOG PARA ALTERAR CLIENTE -->
+  <p-dialog [(visible)]="dialogAlterarCliente" header="Alterar Cliente" [modal]="true" [responsive]="true" [closable]="false"
+  [style]="{width: '500px', minWidth: '400px'}">
+
+    <form #formAtualizar="ngForm">
+      <div class="container">
+        <div class="row">
+          <h4>Atualizando Cliente: {{clienteAlterado.nome}}</h4>
+        </div>
+        <br>
+
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <input type="text" placeholder="Nome" pInputText [(ngModel)]="clienteAlterado.nome" name="nome" required>
+          </div>
+          <div class="col-12 col-md-6">
+            <p-inputMask placeholder="CPF" [(ngModel)]="clienteAlterado.cpf" name="cpf" mask="999.999.999-99" required></p-inputMask>
+          </div>
+        </div>
+        <br>
+
+        <div class="row">
+          <div style="margin-left: 15px">
+            Sexo:
+          </div>
+          <div class="col-12 col-md-6">
+            <p-radioButton name="sexo" value="MASCULINO" label="Masculino" [(ngModel)]="clienteAlterado.sexo"></p-radioButton>
+            <div class="col"></div>
+            <p-radioButton name="sexo" value="FEMININO" label="Feminino" [(ngModel)]="clienteAlterado.sexo"></p-radioButton>
+          </div>
+        </div>
+        <br>
+
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <p-inputMask placeholder="Celular" [(ngModel)]="clienteAlterado.celular" name="celular" mask="(99) 99999-9999"
+              required></p-inputMask>
+          </div>
+          <div class="col-12 col-md-6">
+            <input type="text" placeholder="Email" pInputText [(ngModel)]="clienteAlterado.email" name="email" required>
+          </div>
+        </div>
+        <br>
+
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <input type="text" placeholder="Endereço" pInputText [(ngModel)]="clienteAlterado.endereco" name="endereco"
+              required>
+          </div>
+          <div class="col-12 col-md-6">
+            <input type="text" placeholder="Bairro" pInputText [(ngModel)]="clienteAlterado.bairro" name="bairro" required>
+          </div>
+        </div>
+        <br>
+
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <p-inputMask placeholder="CEP" [(ngModel)]="clienteAlterado.cep" name="cep" mask="99999-999" required></p-inputMask>
+          </div>
+          <div class="col-12 col-md-6">
+            <p-dropdown [options]="cidades" [(ngModel)]="cidadeSelecionada" name="cidade" optionLabel="nome" [filter]="true"
+              filterBy="label,value.nome" placeholder="Cidade"></p-dropdown>
+          </div>
+        </div>
+        <br>
+        <br>
+
+        <br>
+      </div>
+    </form>
+
+      <p-footer>
+        <button type="button" class="btn btn-success" style="margin-right: 7px" [disabled]="!formAtualizar.dirty"
+          (click)="atualizarCliente(clienteAlterado.id, clienteAlterado)">
+          <i class="fa fa-check"></i> Salvar</button>
+        <button type="button" class="btn btn-danger" (click)="closeDialogAlterar()" (click)="formAtualizar.reset()">
+          <i class="fa fa-times"></i> Cancelar</button>
+      </p-footer>
+  </p-dialog>
+
+  <!--DIALOG DE CONFIRMAR EXCLUSAO-->
+  <p-dialog [(visible)]="dialogConfirmarExclusao" header="Confirmar Exclusão" [modal]="true" [closable]="false"
+    [responsive]="true">
+    <br>
+    <h4>Você deseja realmente excluir ?</h4>
+    <br>
+    <p-footer>
+      <button type="button" style="margin-right: 15px" class="btn btn-success" (click)="excluirCliente()">
+        <i class="fa fa-check-circle"></i> Sim</button>
+      <button type="button" class="btn btn-danger" (click)="dialogConfirmarExclusao=false">
+        <i class="fa fa-times-circle"></i> Não</button>
+    </p-footer>
+  </p-dialog>
+
+  <!--DIALOG DE DETALHES-->
+  <p-dialog [(visible)]="dialogDetalhesCliente" header="Detalhes" [modal]="true" [closable]="false" [responsive]="true">
+    <br>
+    <h3>Detalhes do cliente: {{clienteSelecionado.nome}}</h3>
+    <br>
+
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Endereço</th>
+          <th scope="col">Bairro</th>
+          <th scope="col">CEP</th>
+          <th scope="col">Cidade</th>
+          <th scope="col">Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{clienteSelecionado.endereco}}</td>
+          <td>{{clienteSelecionado.bairro}}</td>
+          <td>{{clienteSelecionado.cep}}</td>
+          <td>{{clienteSelecionado.cidade.nome}}</td>
+          <td>{{clienteSelecionado.cidade.estado.nome}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p-footer>
+      <button type="button" style="margin-right: 15px" class="btn btn-success" (click)="closeDialogDetalhes()">
+        <i class="fa fa-check-circle"></i> Ok</button>
+    </p-footer>
+  </p-dialog>
+
+</div>

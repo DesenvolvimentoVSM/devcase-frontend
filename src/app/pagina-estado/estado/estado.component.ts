@@ -36,6 +36,7 @@ export class EstadoComponent implements OnInit {
         this.estados = response;
       },
       error => {
+        this.toasty.clearAll();
         this.toasty.error('Erro ao carregar estados!');
       });
   }
@@ -43,6 +44,7 @@ export class EstadoComponent implements OnInit {
   public cadastrarEstado() {
     this.estadoService.cadastrar(this.estado)
     .subscribe(response => {
+      this.toasty.clearAll();
       this.toasty.success('Estado salvo com sucesso!');
       this.closeDialogEstado();
     },
@@ -54,11 +56,13 @@ export class EstadoComponent implements OnInit {
   public excluirEstado() {
     this.estadoService.excluir(this.idEstado)
       .subscribe(() => {
+        this.toasty.clearAll();
         this.toasty.success('Estado excluído com sucesso!');
         this.listarEstados();
         this.dialogConfirmarExclusao = false;
       },
       error => {
+        this.toasty.clearAll();
         this.toasty.error('Erro ao excluir estado!');
       });
   }
@@ -66,12 +70,14 @@ export class EstadoComponent implements OnInit {
   public atualizarEstado(id: number, estado: Estado) {
     this.estadoService.atualizar(id, estado)
       .subscribe(response => {
+        this.toasty.clearAll();
         this.toasty.success('Estado atualizado com sucesso!');
         this.estado = new Estado();
         this.dialogAlterarEstado = false;
         this.listarEstados();
       },
       error => {
+        this.toasty.clearAll();
         this.toasty.error('Erro ao atualizar estado!');
       });
   }

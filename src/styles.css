@@ -3,6 +3,16 @@
     background-color:#f6f6f6;
 }*/
 
-body{
-    padding-top:50px;
+body {
+  padding-top: 50px;
+}
+
+.center {
+  text-align: center;
+}
+
+.pontos {
+  font-size: 25px;
+  color: blue;
+  font-style: oblique;
 }

@@ -10,6 +10,10 @@ import { PaginaInicialModule } from './pagina-inicial/pagina-inicial.module';
 import { PaginaEstadoModule } from './pagina-estado/pagina-estado.module';
 import { PaginaCidadesModule } from './pagina-cidades/pagina-cidades.module';
 import { PaginaTipoPagamentoModule } from './pagina-tipo-pagamento/pagina-tipo-pagamento.module';
+import { PaginaPontosModule } from './pagina-pontos/pagina-pontos.module';
+import { PaginaClienteModule } from './pagina-cliente/pagina-cliente.module';
+import { PaginaVendaModule } from './pagina-venda/pagina-venda.module';
+import { SegurancaModule } from './seguranca/seguranca.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,11 @@ import { PaginaTipoPagamentoModule } from './pagina-tipo-pagamento/pagina-tipo-p
     PaginaInicialModule,
     PaginaEstadoModule,
     PaginaCidadesModule,
-    PaginaTipoPagamentoModule
+    PaginaTipoPagamentoModule,
+    PaginaPontosModule,
+    PaginaClienteModule,
+    PaginaVendaModule,
+    SegurancaModule
   ],
   providers: [],
   bootstrap: [AppComponent]

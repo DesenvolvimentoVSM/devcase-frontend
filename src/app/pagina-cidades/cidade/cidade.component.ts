@@ -44,6 +44,7 @@ export class CidadeComponent implements OnInit {
         this.cidades = response;
       },
       error => {
+        this.toasty.clearAll();
         this.toasty.error('Erro ao carregar cidades!');
       });
   }
@@ -54,6 +55,7 @@ export class CidadeComponent implements OnInit {
         this.estados = response;
       },
       error => {
+        this.toasty.clearAll();
         this.toasty.error('Erro ao carregar estados!');
       });
   }
@@ -61,6 +63,7 @@ export class CidadeComponent implements OnInit {
   public cadastrarCidade() {
     this.cidadeService.cadastrar(this.cidade)
     .subscribe(response => {
+      this.toasty.clearAll();
       this.toasty.success('Cidade salva com sucesso!');
       this.closeDialogCidade();
     },
@@ -72,11 +75,13 @@ export class CidadeComponent implements OnInit {
   public excluirCidade() {
     this.cidadeService.excluir(this.idCidade)
       .subscribe(() => {
+        this.toasty.clearAll();
         this.toasty.success('Cidade excluída com sucesso!');
         this.listarCidades();
         this.dialogConfirmarExclusao = false;
       },
       error => {
+        this.toasty.clearAll();
         this.toasty.error('Erro ao excluir cidade!');
       });
   }
@@ -84,12 +89,14 @@ export class CidadeComponent implements OnInit {
   public atualizarCidade(id: number, cidade: Cidade) {
     this.cidadeService.atualizar(id, cidade)
       .subscribe(response => {
+        this.toasty.clearAll();
         this.toasty.success('Cidade atualizada com sucesso!');
         this.cidade = new Cidade();
         this.dialogAlterarCidade = false;
         this.listarCidades();
       },
       error => {
+        this.toasty.clearAll();
         this.toasty.error('Erro ao atualizar cidade!');
       });
   }

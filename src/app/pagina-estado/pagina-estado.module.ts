@@ -7,6 +7,7 @@ import {TooltipModule} from 'primeng/tooltip';
 import {TableModule} from 'primeng/table';
 import {DialogModule} from 'primeng/dialog';
 import { RouterModule } from '@angular/router';
+import { EstadoService } from './estado/shared/estado.service';
 
 @NgModule({
   declarations: [EstadoComponent],
@@ -19,6 +20,7 @@ import { RouterModule } from '@angular/router';
     TableModule,
     DialogModule,
   ],
-  exports: [EstadoComponent]
+  exports: [EstadoComponent],
+  providers: [EstadoService]
 })
 export class PaginaEstadoModule { }

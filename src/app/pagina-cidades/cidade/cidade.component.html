@@ -1,13 +1,17 @@
 <div class="container">
 
-  <div class="titulo">
+  <div class="titulo center">
     Cidades
   </div>
 
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
       <button type="button" class="btn btn-success" style="margin-bottom: 5%" (click)="showDialogCidade()">
         <i class="fa fa-plus"></i> Nova Cidade</button>
+    </div>
+    <div>
+      <a class="btn btn-danger" style="margin-bottom: 5%" routerLink="/menu">
+        <i class="fa fa-arrow-circle-left"></i> Voltar</a>
     </div>
   </div>
 
@@ -24,16 +28,16 @@
       </ng-template>
       <ng-template pTemplate="header">
         <tr>
-          <th>Nome</th>
-          <th>Estado</th>
-          <th>Ações</th>
+          <th class="center">Nome</th>
+          <th class="center">Estado</th>
+          <th class="center">Ações</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-cidade>
         <tr>
-          <td>{{cidade.nome}}</td>
-          <td>{{cidade.estado.nome}}</td>
-          <td style="text-align: center;">
+          <td class="center">{{cidade.nome}}</td>
+          <td class="center">{{cidade.estado.nome}}</td>
+          <td class="center">
             <button class="btn btn-warning" pTooltip="Editar" tooltipPosition="top"
               style="margin-right: 5%" (click)="dialogAtualizarCidade(cidade)">
               <i class="fa fa-pen"></i></button>
@@ -63,6 +67,7 @@
       </div>
 
       <br>
+    </form>
 
       <p-footer>
         <button type="button" class="btn btn-success" style="margin-right: 7px" [disabled]="form.invalid"
@@ -71,7 +76,6 @@
         <button type="button" class="btn btn-danger" (click)="closeDialogCidade()">
           <i class="fa fa-times"></i> Cancelar</button>
       </p-footer>
-    </form>
   </p-dialog>
 
   <!-- DIALOG PARA ALTERAR CIDADE -->
@@ -84,6 +88,7 @@
       </div>
       <br>
       <br>
+    </form>
 
       <p-footer>
         <button type="button" class="btn btn-success" style="margin-right: 7px" [disabled]="!formAtualizar.dirty"
@@ -92,7 +97,6 @@
         <button type="button" class="btn btn-danger" (click)="closeDialogAlterar()" (click)="formAtualizar.reset()">
           <i class="fa fa-times"></i> Cancelar</button>
       </p-footer>
-    </form>
   </p-dialog>
 
   <!--DIALOG DE CONFIRMAR EXCLUSAO-->

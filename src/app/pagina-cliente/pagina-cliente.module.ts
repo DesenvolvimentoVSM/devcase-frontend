@@ -1,16 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TipoPagComponent } from './tipo-pag/tipo-pag.component';
+import { ClienteComponent } from './cliente/cliente.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { TooltipModule } from 'primeng/tooltip';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
-import { TipoPagService } from './tipo-pag/shared/tipo-pag.service';
+import { DropdownModule } from 'primeng/dropdown';
+import {RadioButtonModule} from 'primeng/radiobutton';
+import {InputMaskModule} from 'primeng/inputmask';
+
+import { ClienteService } from './cliente/shared/cliente.service';
 
 @NgModule({
-  declarations: [TipoPagComponent],
+  declarations: [ClienteComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -19,8 +23,11 @@ import { TipoPagService } from './tipo-pag/shared/tipo-pag.service';
     TooltipModule,
     TableModule,
     DialogModule,
+    DropdownModule,
+    RadioButtonModule,
+    InputMaskModule
   ],
-  exports: [TipoPagComponent],
-  providers: [TipoPagService]
+  exports: [ClienteComponent],
+  providers: [ClienteService]
 })
-export class PaginaTipoPagamentoModule { }
+export class PaginaClienteModule { }

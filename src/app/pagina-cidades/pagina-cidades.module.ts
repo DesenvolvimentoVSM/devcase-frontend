@@ -9,6 +9,8 @@ import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import {DropdownModule} from 'primeng/dropdown';
 
+import { CidadeService } from './cidade/shared/cidade.service';
+
 @NgModule({
   declarations: [CidadeComponent],
   imports: [
@@ -19,8 +21,9 @@ import {DropdownModule} from 'primeng/dropdown';
     TooltipModule,
     TableModule,
     DialogModule,
-    DropdownModule
+    DropdownModule,
   ],
-  exports: [CidadeComponent]
+  exports: [CidadeComponent],
+  providers: [CidadeService]
 })
 export class PaginaCidadesModule { }

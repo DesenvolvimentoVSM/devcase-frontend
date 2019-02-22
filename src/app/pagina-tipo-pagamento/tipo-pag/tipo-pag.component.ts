@@ -71,7 +71,7 @@ export class TipoPagComponent implements OnInit {
     this.tipoPagService.atualizar(id, tipoPag)
       .subscribe(response => {
         this.toasty.clearAll();
-        this.toasty.success('Cidade atualizada com sucesso!');
+        this.toasty.success('Tipo pagamento atualizado com sucesso!');
         this.tipoPag = new TipoPagamento();
         this.dialogAlterarTipoPag = false;
         this.listarTipos();

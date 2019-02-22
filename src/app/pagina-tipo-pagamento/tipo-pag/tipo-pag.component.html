@@ -1,13 +1,17 @@
 <div class="container">
 
-  <div class="titulo">
+  <div class="titulo center">
     Tipo de Pagamento
   </div>
 
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
       <button type="button" class="btn btn-success" style="margin-bottom: 5%" (click)="showDialogTipoPag()">
         <i class="fa fa-plus"></i> Novo Tipo</button>
+    </div>
+    <div>
+      <a class="btn btn-danger" style="margin-bottom: 5%" routerLink="/menu">
+        <i class="fa fa-arrow-circle-left"></i> Voltar</a>
     </div>
   </div>
 
@@ -24,14 +28,14 @@
       </ng-template>
       <ng-template pTemplate="header">
         <tr>
-          <th>Descrição</th>
-          <th>Ações</th>
+          <th class="center">Descrição</th>
+          <th class="center">Ações</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-tipo>
         <tr>
-          <td>{{tipo.descricao}}</td>
-          <td style="text-align: center;">
+          <td class="center">{{tipo.descricao}}</td>
+          <td class="center">
             <button class="btn btn-warning" pTooltip="Editar" tooltipPosition="top"
               style="margin-right: 5%" (click)="dialogAtualizarTipoPag(tipo)">
               <i class="fa fa-pen"></i></button>
@@ -54,6 +58,7 @@
       </div>
       <br>
       <br>
+    </form>
 
       <p-footer>
         <button type="button" class="btn btn-success" style="margin-right: 7px" [disabled]="form.invalid"
@@ -62,7 +67,6 @@
         <button type="button" class="btn btn-danger" (click)="closeDialogTipoPag()">
           <i class="fa fa-times"></i> Cancelar</button>
       </p-footer>
-    </form>
   </p-dialog>
 
   <!-- DIALOG PARA ALTERAR TIPO PAGAMENTO -->
@@ -75,6 +79,7 @@
       </div>
       <br>
       <br>
+    </form>
 
       <p-footer>
         <button type="button" class="btn btn-success" style="margin-right: 7px" [disabled]="!formAtualizar.dirty"
@@ -83,7 +88,6 @@
         <button type="button" class="btn btn-danger" (click)="closeDialogAlterar()" (click)="formAtualizar.reset()">
           <i class="fa fa-times"></i> Cancelar</button>
       </p-footer>
-    </form>
   </p-dialog>
 
   <!--DIALOG DE CONFIRMAR EXCLUSAO-->

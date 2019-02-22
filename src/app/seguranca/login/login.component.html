@@ -1,0 +1,35 @@
+<div class="container">
+
+  <div class="titulo center">
+    Login
+  </div>
+
+  <div class="col-12 col-md-6">
+    <div class="card">
+      <form #form="ngForm">
+
+        <div class="center">
+          <div>Email:
+            <input type="text" [(ngModel)]="usuario" name="usuario" pInputText required>
+          </div>
+          <br>
+
+          <div>Senha:
+            <input type="password" [(ngModel)]="senha" name="senha" pInputText required>
+          </div>
+        </div>
+      </form>
+
+      <div class="col-12 col-md-12" style="margin-top: 8%">
+        <button type="submit" class="btn btn-success button" [disabled]="form.invalid" (click)="login()">Entrar</button>
+      </div>
+
+      <hr>
+      <div>
+        Não possui uma conta? <button type="button" class="btn btn-outline-dark">Cadastrar-se</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
