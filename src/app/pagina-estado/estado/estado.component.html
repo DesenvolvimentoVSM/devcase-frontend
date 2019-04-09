@@ -1,0 +1,107 @@
+<div class="container">
+
+  <div class="titulo center">
+    Estados
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <button type="button" class="btn btn-success" style="margin-bottom: 5%" (click)="showDialogEstado()">
+        <i class="fa fa-plus"></i> Novo Estado</button>
+    </div>
+    <div>
+      <a class="btn btn-danger" style="margin-bottom: 5%" routerLink="/menu">
+        <i class="fa fa-arrow-circle-left"></i> Voltar</a>
+    </div>
+  </div>
+
+  <div class="row col-md-6" style="margin-bottom: 5%;">
+    <p-table #table [value]="estados" [paginator]="true" [rows]="5" [responsive]="true"
+      [globalFilterFields]="['nome']"
+      [rowsPerPageOptions]="['5','15','20','30']">
+      <ng-template pTemplate="caption">
+        <div style="text-align: left">
+          <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+          <input type="text" pInputText size="25%" placeholder="Pesquisar..."
+            (input)="table.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="center">Nome</th>
+          <th class="center">Ações</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-estado>
+        <tr>
+          <td class="center">{{estado.nome}}</td>
+          <td class="center">
+            <button class="btn btn-warning" pTooltip="Editar" tooltipPosition="top"
+              style="margin-right: 5%" (click)="dialogAtualizarEstado(estado)">
+              <i class="fa fa-pen"></i></button>
+            <button class="btn btn-danger" pTooltip="Excluir" tooltipPosition="top" (click)="confirmarExclusao(estado.id)">
+              <i class="fa fa-trash"></i></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+  </div>
+
+  <!-- DIALOG PARA CADASTRO DE ESTADO -->
+  <p-dialog [(visible)]="dialogEstado" header="Cadastro de Estado" [modal]="true" [responsive]="true" [closable]="false">
+
+    <form #form="ngForm">
+      <div>
+        <div class="col">Nome</div>
+        <input id="input" type="text" pInputText [(ngModel)]="estado.nome" name="nome" required>
+      </div>
+      <br>
+      <br>
+    </form>
+
+      <p-footer>
+        <button type="button" class="btn btn-success" style="margin-right: 7px" [disabled]="form.invalid"
+          (click)="cadastrarEstado()">
+          <i class="fa fa-check"></i> Salvar</button>
+        <button type="button" class="btn btn-danger" (click)="closeDialogEstado()">
+          <i class="fa fa-times"></i> Cancelar</button>
+      </p-footer>
+  </p-dialog>
+
+  <!-- DIALOG PARA ALTERAR ESTADO -->
+  <p-dialog [(visible)]="dialogAlterarEstado" header="Alterar Estado" [modal]="true" [responsive]="true" [closable]="false">
+
+    <form #formAtualizar="ngForm">
+      <div>
+        <div class="col">Nome</div>
+        <input id="input" type="text" pInputText [(ngModel)]="estadoAlterado.nome" name="nome" required>
+      </div>
+      <br>
+      <br>
+    </form>
+
+      <p-footer>
+        <button type="button" class="btn btn-success" style="margin-right: 7px" [disabled]="!formAtualizar.dirty"
+          (click)="atualizarEstado(estadoAlterado.id, estadoAlterado)">
+          <i class="fa fa-check"></i> Salvar</button>
+        <button type="button" class="btn btn-danger" (click)="closeDialogAlterar()" (click)="formAtualizar.reset()">
+          <i class="fa fa-times"></i> Cancelar</button>
+      </p-footer>
+  </p-dialog>
+
+  <!--DIALOG DE CONFIRMAR EXCLUSAO-->
+  <p-dialog [(visible)]="dialogConfirmarExclusao" header="Confirmar Exclusão" [modal]="true" [closable]="false"
+    [responsive]="true">
+    <br>
+    <h4>Você deseja realmente excluir ?</h4>
+    <br>
+    <p-footer>
+      <button type="button" style="margin-right: 15px" class="btn btn-success" (click)="excluirEstado()">
+        <i class="fa fa-check-circle"></i> Sim</button>
+      <button type="button" class="btn btn-danger" (click)="dialogConfirmarExclusao=false">
+        <i class="fa fa-times-circle"></i> Não</button>
+    </p-footer>
+  </p-dialog>
+
+</div>
